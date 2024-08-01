@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神威|网站快照生成器</title>
+    <link rel="icon" href="icon/icon.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #snapshotContainer {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s, opacity 0.5s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        img:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>网站快照生成器</h1>
+    <p>请输入要生成快照的 URL：</p>
+    <input type="text" id="urlInput" placeholder="输入你要获取的网页快照图地址">
+    <button onclick="generateSnapshot()">生成快照</button>
+    <div id="snapshotContainer">
+        <img id="snapshotImage" src="" alt="网站快照将显示在此处" oncontextmenu="return false;">
+    </div>
+
+    <script>
+        function generateSnapshot() {
+            var apiKey = 'fc8eb9';  // 替换为你的 Screenshot Machine API 密钥
+            var url = document.getElementById('urlInput').value;
+            var dimension = '1024x768';
+            var snapshotUrl = 'https://api.screenshotmachine.com?key=' + apiKey + '&url=' + encodeURIComponent(url) + '&dimension=' + dimension;
+
+            var snapshotImage = document.getElementById('snapshotImage');
+            snapshotImage.src = snapshotUrl;
+            snapshotImage.onload = function() {
+                snapshotImage.classList.add('visible');
+            };
+            snapshotImage.classList.remove('visible');
+        }
+
+        document.getElementById('snapshotImage').addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.getElementById('snapshotImage').addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
