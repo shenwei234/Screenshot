@@ -61,7 +61,32 @@
         .visible {
             opacity: 1;
         }
+        .footer a {
+            text-decoration: none;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 80px;
+            height: 80px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            margin: auto;
+        }
 
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -72,21 +97,28 @@
     <a href="https://blog.shenwei233.cn"><button>返回博客</button></a>
     <div id="snapshotContainer">
         <img id="snapshotImage" src="" alt="网站快照将显示在此处" oncontextmenu="return false;">
+        <div id="loading" class="loading"></div>
     </div>
 
     <script>
         function generateSnapshot() {
-            var apiKey = 'fc8eb9';
+            var apiKey = 'fc8eb9';  // 替换为你的 Screenshot Machine API 密钥
             var url = document.getElementById('urlInput').value;
             var dimension = '1024x768';
             var snapshotUrl = 'https://api.screenshotmachine.com?key=' + apiKey + '&url=' + encodeURIComponent(url) + '&dimension=' + dimension;
 
             var snapshotImage = document.getElementById('snapshotImage');
+            var loading = document.getElementById('loading');
+            
+            loading.style.display = 'block';
+            snapshotImage.src = '';
+            snapshotImage.classList.remove('visible');
+            
             snapshotImage.src = snapshotUrl;
             snapshotImage.onload = function() {
                 snapshotImage.classList.add('visible');
+                loading.style.display = 'none';
             };
-            snapshotImage.classList.remove('visible');
         }
 
         document.getElementById('snapshotImage').addEventListener('contextmenu', function(e) {
@@ -97,8 +129,8 @@
             e.preventDefault();
         });
     </script>
-    <die cless="footer">
+    <div class="footer">
         <p>©版权所有为<a href="https://www.shenwei233.cn" style="color:#006fa7">神威</a>|<a href="https://www.shenwei233.cn" style="color:#006fa7">神威</a>提供技术支持|<a href="https://www.shenwei233.cn/%e5%8f%8b%e6%83%85%e9%93%be%e6%8e%a5" target="_blank" style="color:#006fa7" title="点击查看友情链接">友情链接</a></p>
-    </die>
+    </div>
 </body>
 </html>
